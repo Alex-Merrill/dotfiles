@@ -56,6 +56,12 @@ local modules = {
       require "plugins.colorizer"
     end,
   },
+  {
+    "numToStr/Comment.nvim",
+    config = function()
+      require("Comment").setup()
+    end,
+  },
 
   -- theme/ruler
   {

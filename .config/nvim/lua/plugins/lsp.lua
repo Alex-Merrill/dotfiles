@@ -100,6 +100,8 @@ require("lspconfig").tsserver.setup {
       debug = false,
       disable_commands = false,
       enable_import_on_completion = true,
+      disable_suggestions = false,
+      include_completionsForImportStatements = true,
 
       -- import all
       import_all_timeout = 5000, -- ms
@@ -182,33 +184,11 @@ require("lspconfig").pylsp.setup {
 }
 
 -- sumenko lua server setup
-local sumneko_root_path = "/home/alex/tools/lua-language-server/bin"
-local sumneko_binary = "/home/alex/tools/lua-language-server/bin/lua-language-server"
-
+local sumneko_root_path = os.getenv "HOME" .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin"
+local sumneko_binary = sumneko_root_path .. "/lua-language-server"
 if sumneko_binary == "" then
   print("Unable to load Sumneko language servr.  Make sure it is installed in " .. sumneko_root_path)
 else
-  --local lua_lsp_config = {
-  --  cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
-  --  settings = {
-  --    Lua = {
-  --      runtime = {
-  --        version = "LuaJIT",
-  --        path = vim.split(package.path, ";"),
-  --      },
-  --      diagnostics = {
-  --        globals = { "vim" },
-  --      },
-  --      workspace = {
-  --        library = {
-  --          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-  --          [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
-  --        },
-  --      },
-  --    },
-  --  },
-  --}
-
   require("lspconfig").sumneko_lua.setup {
     capabilities = capabilities,
     on_attach = on_attach,

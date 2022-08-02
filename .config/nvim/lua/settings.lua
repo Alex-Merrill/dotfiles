@@ -49,7 +49,7 @@ opt.scrolloff = 8
 opt.sidescrolloff = 4
 
 -- swaps and undos
-local undodir = "/home/alex/.nvim"
+local undodir = os.getenv "HOME" .. "/.nvim"
 if vim.fn.isdirectory(undodir) == 0 then
   os.execute("mkdir " .. undodir)
 end
