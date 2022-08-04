@@ -84,6 +84,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { buffer = 0 })
   vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_next, { buffer = 0 })
   vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_prev, { buffer = 0 })
+  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = 0 })
 end
 
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -151,6 +152,7 @@ require("lspconfig").tsserver.setup {
     vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { buffer = 0 })
     vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_next, { buffer = 0 })
     vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_prev, { buffer = 0 })
+    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = 0 })
   end,
 }
 

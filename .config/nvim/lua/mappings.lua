@@ -29,6 +29,10 @@ nmap("<leader>fg", "<cmd>Telescope live_grep<cr>")
 nmap("<leader>fb", "<cmd>Telescope file_browser<cr>")
 nmap("<leader>fn", "<cmd>lua require('telescope').extensions.notify.notify()<cr>")
 
+-- nvim-tree
+nmap("<leader>to", "<cmd>NvimTreeRefresh | NvimTreeFocus<cr>")
+nmap("<leader>tc", "<cmd>NvimTreeClose<cr>")
+
 -- copy paste global
 nmap("<leader>y", [["+y]])
 nmap("<leader>p", [["+p]])

@@ -63,6 +63,15 @@ local modules = {
     end,
   },
 
+  -- file tree
+  {
+    "kyazdani42/nvim-tree.lua",
+    config = function()
+      require "plugins.nvim-tree"
+    end,
+    tag = "nightly",
+  },
+
   -- theme/ruler
   {
     "folke/tokyonight.nvim",
