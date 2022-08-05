@@ -67,6 +67,9 @@ opt.cursorline = true
 opt.signcolumn = "auto:1-4"
 opt.title = true
 
+-- status line
+opt.laststatus = 3
+
 opt.guicursor = {
   "n-v-c-sm:block",
   "i-ci-ve:block",
