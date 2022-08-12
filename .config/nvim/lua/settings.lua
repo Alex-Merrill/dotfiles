@@ -29,6 +29,7 @@ opt.autoindent = true
 opt.wrap = false
 opt.breakindent = true
 opt.linebreak = true
+vim.cmd [[set formatoptions-=cro]]
 
 -- line numbers
 opt.number = true
