@@ -36,3 +36,6 @@ nmap("<leader>tc", "<cmd>NvimTreeClose<cr>")
 -- copy paste global
 nmap("<leader>y", [["+y]])
 nmap("<leader>p", [["+p]])
+
+-- lsp lines toggle
+nmap("<leader>l", require("lsp_lines").toggle)

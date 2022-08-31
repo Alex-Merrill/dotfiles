@@ -79,3 +79,8 @@ opt.termguicolors = true
 
 -- clipboard
 opt.clipboard = "unnamed"
+
+-- disable virtual text in favor of lsp_lines
+vim.diagnostic.config {
+  virtual_text = false,
+}

@@ -4,6 +4,11 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/local/bin
 export XDG_DATA_HOME=$HOME/.local/share
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/include/opencv4
+
+# flyctl
+export FLYCTL_INSTALL=/home/alex/.fly
+export PATH=$FLYCTL_INSTALL/bin:$PATH
 
 # nvm
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"

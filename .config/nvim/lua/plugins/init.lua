@@ -137,6 +137,12 @@ local modules = {
       require "plugins.lsp"
     end,
   },
+  {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    config = function()
+      require("lsp_lines").setup()
+    end,
+  },
   -- formatting
   {
     "jose-elias-alvarez/null-ls.nvim",
