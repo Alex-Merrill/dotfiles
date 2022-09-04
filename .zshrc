@@ -119,4 +119,3 @@ alias python="python3"
 alias tmux="tmux -2"
 alias edittmux="vim ~/.tmux.conf"
 alias luamake=/home/alex/tools/lua-language-server/3rd/luamake/luamake
-
