@@ -37,13 +37,13 @@ local modules = {
       require("leap").set_default_keymaps()
     end,
   },
-  {
-    "tpope/vim-repeat",
-    event = "InsertEnter",
-    config = function()
-      vim.cmd [[silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)]]
-    end,
-  },
+  -- {
+  --   "tpope/vim-repeat",
+  --   event = "InsertEnter",
+  --   config = function()
+  --     vim.cmd [[silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)]]
+  --   end,
+  -- },
   {
     "lukas-reineke/indent-blankline.nvim",
     config = function()
@@ -59,8 +59,20 @@ local modules = {
   {
     "numToStr/Comment.nvim",
     config = function()
-      require("Comment").setup()
+      require "plugins.comment"
     end,
+  },
+  {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+  },
+  {
+    "folke/which-key.nvim",
+    config = function()
+      require("which-key").setup()
+    end,
+  },
+  {
+    "sbulav/nredir.nvim",
   },
 
   -- file tree
@@ -95,8 +107,17 @@ local modules = {
 
   -- git
   { "tpope/vim-fugitive" },
+  {
+    "sindrets/diffview.nvim",
+    config = function()
+      require "plugins.diffview"
+    end,
+    requires = {
+      "nvim-lua/plenary.nvim",
+    },
+  },
 
-  -- treesitter
+  --treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     run = function()
