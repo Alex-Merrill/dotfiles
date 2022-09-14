@@ -65,8 +65,7 @@ cmp.setup {
   },
 }
 -- LSP CONFIGURATION
-local lsp_installer = require "nvim-lsp-installer"
-lsp_installer.settings {
+require("mason").setup {
   ui = {
     icons = {
       server_installed = "✓",
@@ -75,7 +74,11 @@ lsp_installer.settings {
     },
   },
 }
-lsp_installer.setup {}
+
+require("mason-lspconfig").setup {
+  ensure_installed = { "sumenko_lua", "pylsp", "gopls", "tsserver" },
+  automatic_installation = true,
+}
 
 local on_attach = function(client, bufnr)
   client.server_capabilities.documentFormattingProvider = false
@@ -186,7 +189,8 @@ require("lspconfig").pylsp.setup {
 }
 
 -- sumenko lua server setup
-local sumneko_root_path = os.getenv "HOME" .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin"
+local sumneko_root_path = os.getenv "HOME"
+  .. "/.local/share/nvim/mason/packages/lua-language-server/extension/server/bin"
 local sumneko_binary = sumneko_root_path .. "/lua-language-server"
 if sumneko_binary == "" then
   print("Unable to load Sumneko language servr.  Make sure it is installed in " .. sumneko_root_path)

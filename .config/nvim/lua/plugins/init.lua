@@ -149,15 +149,20 @@ local modules = {
   { "nvim-telescope/telescope-file-browser.nvim" },
 
   -- LSP
-  { "williamboman/nvim-lsp-installer" },
-  { "jose-elias-alvarez/nvim-lsp-ts-utils" },
-  { "onsails/lspkind.nvim" },
+  {
+    "williamboman/mason.nvim",
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+  },
   {
     "neovim/nvim-lspconfig",
     config = function()
       require "plugins.lsp"
     end,
   },
+  { "jose-elias-alvarez/nvim-lsp-ts-utils" },
+  { "onsails/lspkind.nvim" },
   {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     config = function()
@@ -167,6 +172,7 @@ local modules = {
   -- formatting
   {
     "jose-elias-alvarez/null-ls.nvim",
+    commit = "cdef04dfad2d1a6d76f596ac63600e7430baaabe",
     requires = {
       "nvim-lua/plenary.nvim",
     },

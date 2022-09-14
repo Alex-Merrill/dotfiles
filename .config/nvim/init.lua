@@ -1,17 +1,24 @@
 -- bootstrap packer if not found
 local fn = vim.fn
 local api = vim.api
-local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
-if fn.isdirectory(install_path) == 0 then
-  fn.system {
-    "git",
-    "clone",
-    "--depth",
-    "1",
-    "https://github.com/wbthomason/packer.nvim",
-    install_path,
-  }
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+   packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+   vim.o.runtimepath = vim.fn.stdpath('data') .. '/site/pack/*/start/*,' .. vim.o.runtimepath
 end
+
+vim.cmd [[ packadd packer.nvim ]]
+require('packer').startup(function(use)
+   -- make sure to add this line to let packer manage itself
+   use 'wbthomason/packer.nvim'
+
+   -- Automatically set up your configuration after cloning packer.nvim
+   -- Put this at the end after all plugins
+   if packer_bootstrap then
+     require('packer').sync()
+   end
+end)
+
 
 api.nvim_create_autocmd("BufWritePost", {
   group = api.nvim_create_augroup("Packer", { clear = true }),
@@ -29,7 +36,7 @@ if has_impatient and impatient then
   impatient.enable_profile()
 end
 
+require "plugins"
 require "settings"
 require "mappings"
-require "plugins"
 require "utils"
