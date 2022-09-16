@@ -68,7 +68,7 @@ DISABLE_MAGIC_FUNCTIONS="true"
 
 ENABLE_CORRECTION="true"
 
-plugins=(git)
+plugins=(git fzf)
 
 source $ZSH/oh-my-zsh.sh
 
