@@ -84,3 +84,26 @@ opt.clipboard = "unnamed"
 vim.diagnostic.config {
   virtual_text = false,
 }
+
+-- some alacritty padding stuff
+function Sad(line_nr, from, to, fname)
+  vim.cmd(string.format("silent !sed -i '%ss/%s/%s/' %s", line_nr, from, to, fname))
+end
+
+function IncreasePadding()
+  Sad("25", 0, 15, "~/dotfiles/alacritty/alacritty.yml")
+  Sad("26", 0, 15, "~/dotfiles/alacritty/alacritty.yml")
+end
+
+function DecreasePadding()
+  Sad("25", 15, 0, "~/.config/alacritty/alacritty.yml")
+  Sad("26", 15, 0, "~/.config/alacritty/alacritty.yml")
+end
+
+vim.cmd [[
+  augroup ChangeAlacrittyPadding
+   au! 
+   au VimEnter * lua DecreasePadding()
+   au VimLeavePre * lua IncreasePadding()
+  augroup END 
+]]

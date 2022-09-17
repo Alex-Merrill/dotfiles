@@ -76,7 +76,7 @@ require("mason").setup {
 }
 
 require("mason-lspconfig").setup {
-  ensure_installed = { "sumenko_lua", "pylsp", "gopls", "tsserver" },
+  ensure_installed = { "sumenko_lua", "pylsp", "gopls", "tsserver", "stylua" },
   automatic_installation = true,
 }
 
@@ -188,6 +188,11 @@ require("lspconfig").pylsp.setup {
   on_attach = on_attach,
 }
 
+require("lspconfig").yamlls.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
 -- sumenko lua server setup
 local sumneko_root_path = os.getenv "HOME"
   .. "/.local/share/nvim/mason/packages/lua-language-server/extension/server/bin"
@@ -228,7 +233,7 @@ nullls.setup {
       extra_args = { "-a", "-a" },
     },
     nullls.builtins.formatting.prettier.with {
-      filestypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "css", "html" },
+      filestypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "css", "html", "yaml" },
     },
     nullls.builtins.formatting.stylua,
   },

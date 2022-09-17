@@ -6,6 +6,9 @@ export PATH=$PATH:$HOME/local/bin
 export XDG_DATA_HOME=$HOME/.local/share
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/include/opencv4
 
+# mason stuff
+export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
+
 # flyctl
 export FLYCTL_INSTALL=/home/alex/.fly
 export PATH=$FLYCTL_INSTALL/bin:$PATH
@@ -100,6 +103,7 @@ f() {
 
 unsetopt EXTENDED_HISTORY
 
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 ################################ ALIAS #######################################
 alias vim="nvim" 
@@ -111,7 +115,8 @@ alias ll="ls -ll"
 alias code="cd ~/Desktop/code"
 alias sourcezsh="source ~/.zshrc ~/.zsh_profile"
 alias python="python3"
-alias tmux="tmux -2"
+alias t="tmux -2 -u"
+alias tk="tmux kill-server"
 alias edittmux="vim ~/.tmux.conf"
-alias luamake=/home/alex/tools/lua-language-server/3rd/luamake/luamake
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+alias copy='xclip -sel clip'
+alias open="xdg-open"

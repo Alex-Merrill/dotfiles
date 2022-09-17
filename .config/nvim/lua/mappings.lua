@@ -44,3 +44,9 @@ nmap("<leader>gd", "<cmd>lua require('plugins.diffview').toggleDiffview()<cr>")
 
 -- utils
 nmap("<leader>r", "<cmd>lua reload_nvim_conf()<cr>")
+
+-- window resizing
+nmap("<A-->", "<cmd>res-1<cr>")
+nmap("<A-=>", "<cmd>res+1<cr>")
+nmap("<A-_>", "<cmd>vert res-1<cr>")
+nmap("<A-+>", "<cmd>vert res+1<cr>")
