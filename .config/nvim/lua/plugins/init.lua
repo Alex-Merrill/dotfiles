@@ -37,13 +37,6 @@ local modules = {
       require("leap").set_default_keymaps()
     end,
   },
-  -- {
-  --   "tpope/vim-repeat",
-  --   event = "InsertEnter",
-  --   config = function()
-  --     vim.cmd [[silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)]]
-  --   end,
-  -- },
   {
     "lukas-reineke/indent-blankline.nvim",
     config = function()
@@ -73,6 +66,17 @@ local modules = {
   },
   {
     "sbulav/nredir.nvim",
+  },
+  {
+    "stevearc/dressing.nvim",
+  },
+  {
+    "ziontee113/icon-picker.nvim",
+    config = function()
+      require("icon-picker").setup {
+        disable_legacy_commands = true,
+      }
+    end,
   },
 
   -- file tree

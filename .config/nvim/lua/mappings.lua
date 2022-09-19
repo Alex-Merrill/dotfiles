@@ -16,6 +16,10 @@ local nmap = function(keybind, cmd, bufnr)
   keymap("n", keybind, cmd, bufnr)
 end
 
+local vmap = function(keybind, cmd, bufnr)
+  keymap("v", keybind, cmd, bufnr)
+end
+
 local imap = function(keybind, cmd, bufnr)
   keymap("i", keybind, cmd, bufnr)
 end
@@ -33,8 +37,10 @@ nmap("<leader>fn", "<cmd>lua require('telescope').extensions.notify.notify()<cr>
 nmap("<leader>to", "<cmd>NvimTreeRefresh | NvimTreeToggle<cr>")
 
 -- copy paste global
-nmap("<leader>y", [["+y]])
-nmap("<leader>p", [["+p]])
+nmap("<leader>y", '"+y')
+nmap("<leader>p", '"+p')
+vmap("<leader>y", '"+y')
+vmap("<leader>p", '"+p')
 
 -- lsp lines toggle
 nmap("<leader>l", require("lsp_lines").toggle)
@@ -50,3 +56,6 @@ nmap("<A-->", "<cmd>res-1<cr>")
 nmap("<A-=>", "<cmd>res+1<cr>")
 nmap("<A-_>", "<cmd>vert res-1<cr>")
 nmap("<A-+>", "<cmd>vert res+1<cr>")
+
+-- emoji picker
+nmap("<leader>e", "<cmd>IconPickerNormal<cr>")
