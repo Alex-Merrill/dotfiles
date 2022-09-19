@@ -6,16 +6,14 @@ export PATH=$PATH:$HOME/local/bin
 export XDG_DATA_HOME=$HOME/.local/share
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/include/opencv4
 
-# mason stuff
+# adds mason lsp's to path
 export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
-
-# flyctl
-export FLYCTL_INSTALL=/home/alex/.fly
-export PATH=$FLYCTL_INSTALL/bin:$PATH
 
 # nvm
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -56,9 +54,6 @@ SPACESHIP_PROMPT_ORDER=(
   char          # Prompt character
 )
 
-
-
-
 # Case sensitive shell autocomplete
 CASE_SENSITIVE="true"
 COMPLETION_WAITING_DOTS=true
@@ -71,7 +66,11 @@ DISABLE_MAGIC_FUNCTIONS="true"
 
 ENABLE_CORRECTION="true"
 
-plugins=(git fzf)
+plugins=(
+  git
+  fzf
+  zsh-autosuggestions
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -92,8 +91,6 @@ f() {
     ) && cd ~/$dir
 }
 
-# export MANPATH="/usr/local/man:$MANPATH"
-
 # Preferred editor for local and remote sessions
  if [[ -n $SSH_CONNECTION ]]; then
    export EDITOR='vim'
@@ -102,8 +99,6 @@ f() {
  fi
 
 unsetopt EXTENDED_HISTORY
-
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 ################################ ALIAS #######################################
 alias vim="nvim" 
