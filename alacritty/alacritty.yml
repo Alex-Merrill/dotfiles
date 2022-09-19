@@ -39,16 +39,20 @@ draw_bold_text_with_bright_colors: true
 font:
   # The normal (roman) font face to use.
   normal:
-    family: JetBrainsMonoNL Nerd Font
+    family: monospace
     style: Regular
 
   bold:
-    family: JetBrains Mono
-    style: Bold
+    family: monospace
+    style: ExtraBold
 
   italic:
-    family: JetBrains Mono
-    style: Italic
+    family: monospace
+    style: Light Italic
+
+  bold_italic:
+    family: monospace
+    style: ExtraBold Italic
 
   size: 18.0
   # Offset is the extra space around each character. offset.y can be thought of
@@ -65,7 +69,7 @@ font:
   # OS X only: use thin stroke font rendering. Thin strokes are suitable
   # for retina displays, but for non-retina you probably want this set to
   # false.
-  use_thin_strokes: false
+  use_thin_strokes: true
 # Should display the render timer
 debug.render_timer: false
 # https://github.com/Rigellute/rigel
