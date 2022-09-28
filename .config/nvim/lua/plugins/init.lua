@@ -78,6 +78,9 @@ local modules = {
       }
     end,
   },
+  {
+    "dstein64/vim-startuptime",
+  },
 
   -- file tree
   {
