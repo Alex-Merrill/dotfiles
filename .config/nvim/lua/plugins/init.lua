@@ -201,6 +201,11 @@ local modules = {
     run = "./install.sh",
     requires = "hrsh7th/nvim-cmp",
   },
+
+  -- processing
+  {
+    "sophacles/vim-processing",
+  },
 }
 
 require("packer").startup { modules }

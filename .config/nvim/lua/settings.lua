@@ -66,7 +66,7 @@ opt.colorcolumn = "80"
 opt.cmdheight = 2
 opt.cursorline = true
 opt.signcolumn = "auto:1-4"
-opt.title = true
+opt.title = false
 
 -- status line
 opt.laststatus = 3

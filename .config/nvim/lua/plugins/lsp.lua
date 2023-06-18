@@ -76,7 +76,7 @@ require("mason").setup {
 }
 
 require("mason-lspconfig").setup {
-  ensure_installed = { "sumenko_lua", "pylsp", "gopls", "tsserver", "stylua" },
+  ensure_installed = { "pylsp", "gopls", "tsserver" },
   automatic_installation = true,
 }
 
@@ -90,7 +90,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = 0 })
 end
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- tsserver setup
 require("lspconfig").tsserver.setup {
@@ -193,45 +193,50 @@ require("lspconfig").yamlls.setup {
   on_attach = on_attach,
 }
 
--- sumenko lua server setup
-local sumneko_root_path = os.getenv "HOME"
-  .. "/.local/share/nvim/mason/packages/lua-language-server/extension/server/bin"
-local sumneko_binary = sumneko_root_path .. "/lua-language-server"
-if sumneko_binary == "" then
-  print("Unable to load Sumneko language servr.  Make sure it is installed in " .. sumneko_root_path)
-else
-  require("lspconfig").sumneko_lua.setup {
-    capabilities = capabilities,
-    on_attach = on_attach,
-    cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
-    settings = {
-      Lua = {
-        runtime = {
-          version = "LuaJIT",
-          path = vim.split(package.path, ";"),
-        },
-        diagnostics = {
-          globals = { "vim" },
-        },
-        workspace = {
-          library = {
-            [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-            [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
-          },
-        },
-      },
-    },
-  }
-end
+-- -- sumenko lua server setup
+-- local sumneko_root_path = os.getenv "HOME"
+--   .. "/.local/share/nvim/mason/packages/lua-language-server/extension/server/bin"
+-- local sumneko_binary = sumneko_root_path .. "/lua-language-server"
+-- if sumneko_binary == "" then
+--   print("Unable to load Sumneko language servr.  Make sure it is installed in " .. sumneko_root_path)
+-- else
+--   require("lspconfig").sumneko_lua.setup {
+--     capabilities = capabilities,
+--     on_attach = on_attach,
+--     cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
+--     settings = {
+--       Lua = {
+--         runtime = {
+--           version = "LuaJIT",
+--           path = vim.split(package.path, ";"),
+--         },
+--         diagnostics = {
+--           globals = { "vim" },
+--         },
+--         workspace = {
+--           library = {
+--             [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+--             [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+--           },
+--         },
+--       },
+--     },
+--   }
+-- end
 
 -- FORMATTER CONFIG
+-- TODO: FIX THIS
 local nullls = require "null-ls"
 nullls.setup {
   sources = {
     nullls.builtins.formatting.gofumpt,
-    nullls.builtins.formatting.autopep8.with {
-      extra_args = { "-a", "-a" },
+    -- nullls.builtins.formatting.autopep8.with {
+    --   extra_args = { "--in-place", "--aggressive", "--agressive" },
+    -- },
+    nullls.builtins.formatting.black.with {
+      extra_args = { "--line-length=80" },
     },
+    nullls.builtins.formatting.isort,
     nullls.builtins.formatting.prettier.with {
       filestypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "css", "html", "yaml" },
     },

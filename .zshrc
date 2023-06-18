@@ -6,6 +6,9 @@ export PATH=$PATH:$HOME/local/bin
 export XDG_DATA_HOME=$HOME/.local/share
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/include/opencv4
 
+# processing
+export PATH=$PATH:/usr/share/processing/processing-4.0.1
+
 # adds mason lsp's to path
 export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
 
@@ -105,13 +108,14 @@ alias vim="nvim"
 alias edit="nvim ~/.zshrc"
 alias vimconfig="cd ~/.config/nvim/lua"
 alias config="cd ~/.config"
+alias dotfiles="cd ~/dotfiles"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias la="ls -a"
 alias ll="ls -ll"
-alias code="cd ~/Desktop/code"
+alias code="cd ~/Code"
 alias sourcezsh="source ~/.zshrc ~/.zsh_profile"
 alias python="python3"
 alias t="tmux -2 -u"
