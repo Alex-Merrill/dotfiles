@@ -8,6 +8,9 @@ require("telescope").setup {
     },
     file_browser = {
       hijack_netrw = true,
+      hidden = { file_browser = true, folder_browser = true },
+      respect_gitignore = false,
+      grouped = true,
       mappings = {
         ["i"] = {
           -- your custom insert mode mappings
@@ -18,6 +21,7 @@ require("telescope").setup {
   },
   pickers = {
     find_files = {
+      hidden = true,
       find_command = {
         "rg",
         "--files",

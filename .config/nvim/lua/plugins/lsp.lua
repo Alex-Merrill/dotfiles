@@ -193,6 +193,11 @@ require("lspconfig").yamlls.setup {
   on_attach = on_attach,
 }
 
+require("lspconfig").lua_ls.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
 -- -- sumenko lua server setup
 -- local sumneko_root_path = os.getenv "HOME"
 --   .. "/.local/share/nvim/mason/packages/lua-language-server/extension/server/bin"

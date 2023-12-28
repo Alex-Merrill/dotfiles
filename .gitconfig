@@ -1,0 +1,8 @@
+[user]
+	email = aomerrill98@gmail.com
+	name = Alex-Merrill
+[init]
+	defaultBranch = main
+[alias]
+	st = status
+	ac = !git add . && git commit

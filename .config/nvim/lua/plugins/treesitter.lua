@@ -15,26 +15,6 @@ require("nvim-treesitter.configs").setup {
   autotag = {
     enable = true,
   },
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
-    config = {
-      javascript = {
-        __default = "// %s",
-        jsx_element = "{/* %s */}",
-        jsx_fragment = "{/* %s */}",
-        jsx_attribute = "// %s",
-        comment = "// %s",
-      },
-      typescript = {
-        __default = "// %s",
-        __multiline = "/* %s */",
-        tsx_element = "{/* %s */}",
-        tsx_fragment = "{/* %s */}",
-        tsx_attribute = "// %s",
-      },
-    },
-  },
   textobjects = {
     select = {
       enable = true,
@@ -57,6 +37,27 @@ require("nvim-treesitter.configs").setup {
         ["am"] = "@call.outer",
         ["im"] = "@call.inner",
       },
+    },
+  },
+}
+
+require("ts_context_commentstring").setup {
+  enable = true,
+  enable_autocmd = false,
+  config = {
+    javascript = {
+      __default = "// %s",
+      jsx_element = "{/* %s */}",
+      jsx_fragment = "{/* %s */}",
+      jsx_attribute = "// %s",
+      comment = "// %s",
+    },
+    typescript = {
+      __default = "// %s",
+      __multiline = "/* %s */",
+      tsx_element = "{/* %s */}",
+      tsx_fragment = "{/* %s */}",
+      tsx_attribute = "// %s",
     },
   },
 }

@@ -59,3 +59,6 @@ nmap("<A-+>", "<cmd>vert res+1<cr>")
 
 -- emoji picker
 nmap("<leader>e", "<cmd>IconPickerNormal<cr>")
+
+-- general
+nmap("<leader>bb", "<C-^>")

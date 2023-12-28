@@ -5,6 +5,9 @@ export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/local/bin
 export XDG_DATA_HOME=$HOME/.local/share
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/include/opencv4
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
 
 # processing
 export PATH=$PATH:/usr/share/processing/processing-4.0.1
@@ -73,7 +76,13 @@ plugins=(
   git
   fzf
   zsh-autosuggestions
+  asdf
+  pyenv
 )
+
+# load pyenv
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 source $ZSH/oh-my-zsh.sh
 

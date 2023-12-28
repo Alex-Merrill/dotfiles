@@ -1,15 +1,15 @@
 local modules = {
-  -- packer
-  { "wbthomason/packer.nvim" },
 
   -- plenary
   { "nvim-lua/plenary.nvim" },
 
   -- util
-  { "lewis6991/impatient.nvim" }, -- lazy load
   {
     "rcarriga/nvim-notify",
-    requires = "nvim-lua/plenary.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    lazy = true,
     config = function()
       require("notify").setup {
         stages = "fade",
@@ -19,38 +19,51 @@ local modules = {
   },
   {
     "glacambre/firenvim",
-    run = function()
+    lazy = true,
+    build = function()
       vim.fn["firenvim#install"](0)
     end,
   },
-  { "tpope/vim-surround" },
+  {
+    "tpope/vim-surround",
+    lazy = true,
+  },
   {
     "windwp/nvim-autopairs",
+    lazy = true,
     config = function()
       require "plugins.autopairs"
     end,
   },
   {
     "ggandor/leap.nvim",
-    after = "tokyonight.nvim",
+    dependencies = { "tokyonight.nvim" },
+    lazy = true,
     config = function()
       require("leap").set_default_keymaps()
     end,
   },
   {
     "lukas-reineke/indent-blankline.nvim",
+    lazy = true,
     config = function()
       require "plugins.indent-blankline"
     end,
   },
   {
+    "HiPhish/rainbow-delimiters.nvim",
+    lazy = true,
+  },
+  {
     "norcalli/nvim-colorizer.lua",
+    lazy = true,
     config = function()
       require "plugins.colorizer"
     end,
   },
   {
     "numToStr/Comment.nvim",
+    lazy = false,
     config = function()
       require "plugins.comment"
     end,
@@ -60,6 +73,7 @@ local modules = {
   },
   {
     "folke/which-key.nvim",
+    event = "VeryLazy",
     config = function()
       require("which-key").setup()
     end,
@@ -80,6 +94,10 @@ local modules = {
   },
   {
     "dstein64/vim-startuptime",
+    cmd = "StartupTime",
+    init = function()
+      vim.g.startuptime_tries = 10
+    end,
   },
 
   -- file tree
@@ -94,12 +112,15 @@ local modules = {
   -- theme/ruler
   {
     "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
     config = function()
       require "highlights"
     end,
   },
   {
     "kyazdani42/nvim-web-devicons",
+    event = "VeryLazy",
     config = function()
       require "plugins.devicons"
     end,
@@ -116,10 +137,11 @@ local modules = {
   { "tpope/vim-fugitive" },
   {
     "sindrets/diffview.nvim",
+    event = "VeryLazy",
     config = function()
       require "plugins.diffview"
     end,
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
     },
   },
@@ -127,10 +149,10 @@ local modules = {
   --treesitter
   {
     "nvim-treesitter/nvim-treesitter",
-    run = function()
+    build = function()
       require("nvim-treesitter.install").update { with_sync = true }
     end,
-    requires = {
+    dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
     },
     config = function()
@@ -142,16 +164,17 @@ local modules = {
   -- telescope
   {
     "nvim-telescope/telescope.nvim",
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
     },
+    lazy = false,
     config = function()
       require "plugins.telescope"
     end,
   },
   {
     "nvim-telescope/telescope-fzf-native.nvim",
-    run = "make",
+    build = "make",
   },
   { "nvim-telescope/telescope-file-browser.nvim" },
 
@@ -180,14 +203,14 @@ local modules = {
   {
     "jose-elias-alvarez/null-ls.nvim",
     commit = "cdef04dfad2d1a6d76f596ac63600e7430baaabe",
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
     },
   },
   -- Completion
   {
     "hrsh7th/nvim-cmp",
-    requires = {
+    dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
@@ -196,9 +219,10 @@ local modules = {
     },
   },
   { "L3MON4D3/LuaSnip" },
+  { "codota/tabnine-nvim", build = "./dl_binaries.sh" },
   {
     "tzachar/cmp-tabnine",
-    run = "./install.sh",
+    build = "./install.sh",
     requires = "hrsh7th/nvim-cmp",
   },
 
@@ -208,4 +232,4 @@ local modules = {
   },
 }
 
-require("packer").startup { modules }
+require("lazy").setup(modules)
