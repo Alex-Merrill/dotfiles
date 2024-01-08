@@ -38,9 +38,9 @@ local modules = {
   {
     "ggandor/leap.nvim",
     dependencies = { "tokyonight.nvim" },
-    lazy = true,
+    lazy = false,
     config = function()
-      require("leap").set_default_keymaps()
+      require("leap").create_default_mappings()
     end,
   },
   {
