@@ -19,18 +19,18 @@ local modules = {
   },
   {
     "glacambre/firenvim",
-    lazy = true,
+    event = "VeryLazy",
     build = function()
       vim.fn["firenvim#install"](0)
     end,
   },
   {
     "tpope/vim-surround",
-    lazy = true,
+    event = "VeryLazy",
   },
   {
     "windwp/nvim-autopairs",
-    lazy = true,
+    event = "VeryLazy",
     config = function()
       require "plugins.autopairs"
     end,
@@ -38,32 +38,32 @@ local modules = {
   {
     "ggandor/leap.nvim",
     dependencies = { "tokyonight.nvim" },
-    lazy = false,
+    event = "VeryLazy",
     config = function()
       require("leap").create_default_mappings()
     end,
   },
   {
     "lukas-reineke/indent-blankline.nvim",
-    lazy = true,
+    event = "VeryLazy",
     config = function()
       require "plugins.indent-blankline"
     end,
   },
   {
     "HiPhish/rainbow-delimiters.nvim",
-    lazy = true,
+    event = "VeryLazy",
   },
   {
     "norcalli/nvim-colorizer.lua",
-    lazy = true,
+    event = "VeryLazy",
     config = function()
       require "plugins.colorizer"
     end,
   },
   {
     "numToStr/Comment.nvim",
-    lazy = false,
+    event = "VeryLazy",
     config = function()
       require "plugins.comment"
     end,
@@ -94,6 +94,7 @@ local modules = {
   },
   {
     "dstein64/vim-startuptime",
+    event = "VeryLazy",
     cmd = "StartupTime",
     init = function()
       vim.g.startuptime_tries = 10
@@ -199,13 +200,19 @@ local modules = {
       require("lsp_lines").setup()
     end,
   },
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "VeryLazy",
+    enable = false,
+    config = function()
+      require("lsp_signature").setup {
+        toggle_key = "<C-k>",
+      }
+    end,
+  },
   -- formatting
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    commit = "cdef04dfad2d1a6d76f596ac63600e7430baaabe",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
+    "elentok/format-on-save.nvim",
   },
   -- Completion
   {

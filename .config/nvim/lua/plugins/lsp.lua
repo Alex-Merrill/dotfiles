@@ -39,12 +39,13 @@ cmp.setup {
     ["<CR>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Replace },
   },
   sources = cmp.config.sources {
+    { name = "nvim_lsp_signature_help" },
     { name = "nvim_lua" },
     { name = "nvim_lsp" },
     { name = "cmp_tabnine" },
     { name = "luasnip" },
     { name = "path" },
-    { name = "buffer", keyword_length = 5 },
+    { name = "buffer",                 keyword_length = 5 },
   },
   formatting = {
     format = lspkind.cmp_format {
@@ -81,9 +82,13 @@ require("mason-lspconfig").setup {
 }
 
 local on_attach = function(client, bufnr)
-  client.server_capabilities.documentFormattingProvider = false
+  -- client.server_capabilities.documentFormattingProvider = false
   vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
+  vim.keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, { buffer = 0 })
+  vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { buffer = 0 })
   vim.keymap.set("n", "<leader>gt", vim.lsp.buf.definition, { buffer = 0 })
+  vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { buffer = 0 })
+  vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { buffer = 0 })
   vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { buffer = 0 })
   vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_next, { buffer = 0 })
   vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_prev, { buffer = 0 })
@@ -99,7 +104,7 @@ require("lspconfig").tsserver.setup {
   --
   on_attach = function(client, bufnr)
     local ts_utils = require "nvim-lsp-ts-utils"
-    client.server_capabilities.documentFormattingProvider = false
+    -- client.server_capabilities.documentFormattingProvider = false
     ts_utils.setup {
       debug = false,
       disable_commands = false,
@@ -111,10 +116,10 @@ require("lspconfig").tsserver.setup {
       import_all_timeout = 5000, -- ms
       -- lower numbers = higher priority
       import_all_priorities = {
-        same_file = 1, -- add to existing import statement
-        local_files = 2, -- git files or files with relative path markers
+        same_file = 1,      -- add to existing import statement
+        local_files = 2,    -- git files or files with relative path markers
         buffer_content = 3, -- loaded buffer content
-        buffers = 4, -- loaded buffer names
+        buffers = 4,        -- loaded buffer names
       },
       import_all_scan_buffers = 100,
       import_all_select_source = false,
@@ -130,7 +135,7 @@ require("lspconfig").tsserver.setup {
       inlay_hints_highlight = "Comment",
       inlay_hints_priority = 200, -- priority of the hint extmarks
       inlay_hints_throttle = 150, -- throttle the inlay hint request
-      inlay_hints_format = { -- format options for individual hint kind
+      inlay_hints_format = {      -- format options for individual hint kind
         Type = {},
         Parameter = {},
         Enum = {},
@@ -151,7 +156,10 @@ require("lspconfig").tsserver.setup {
     vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", ":TSLspRenameFile<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", ":TSLspImportAll<CR>", opts)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
+    vim.keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, { buffer = 0 })
     vim.keymap.set("n", "<leader>gt", vim.lsp.buf.definition, { buffer = 0 })
+    vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { buffer = 0 })
+    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { buffer = 0 })
     vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { buffer = 0 })
     vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_next, { buffer = 0 })
     vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_prev, { buffer = 0 })
@@ -174,16 +182,21 @@ require("lspconfig").cssls.setup {
 require("lspconfig").gopls.setup {
   capabilities = capabilities,
   on_attach = on_attach,
-  setings = {
+  settings = {
     gopls = {
+      staticcheck = true,
       gofumpt = true,
-      gofumports = true,
     },
   },
 }
 
 -- pylsp server setup
 require("lspconfig").pylsp.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
+require("lspconfig").pyright.setup {
   capabilities = capabilities,
   on_attach = on_attach,
 }
@@ -198,66 +211,37 @@ require("lspconfig").lua_ls.setup {
   on_attach = on_attach,
 }
 
--- -- sumenko lua server setup
--- local sumneko_root_path = os.getenv "HOME"
---   .. "/.local/share/nvim/mason/packages/lua-language-server/extension/server/bin"
--- local sumneko_binary = sumneko_root_path .. "/lua-language-server"
--- if sumneko_binary == "" then
---   print("Unable to load Sumneko language servr.  Make sure it is installed in " .. sumneko_root_path)
--- else
---   require("lspconfig").sumneko_lua.setup {
---     capabilities = capabilities,
---     on_attach = on_attach,
---     cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
---     settings = {
---       Lua = {
---         runtime = {
---           version = "LuaJIT",
---           path = vim.split(package.path, ";"),
---         },
---         diagnostics = {
---           globals = { "vim" },
---         },
---         workspace = {
---           library = {
---             [vim.fn.expand "$VIMRUNTIME/lua"] = true,
---             [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
---           },
---         },
---       },
---     },
---   }
--- end
+local format_on_save = require("format-on-save")
+local formatters = require("format-on-save.formatters")
 
--- FORMATTER CONFIG
--- TODO: FIX THIS
-local nullls = require "null-ls"
-nullls.setup {
-  sources = {
-    nullls.builtins.formatting.gofumpt,
-    -- nullls.builtins.formatting.autopep8.with {
-    --   extra_args = { "--in-place", "--aggressive", "--agressive" },
-    -- },
-    nullls.builtins.formatting.black.with {
-      extra_args = { "--line-length=80" },
-    },
-    nullls.builtins.formatting.isort,
-    nullls.builtins.formatting.prettier.with {
-      filestypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "css", "html", "yaml" },
-    },
-    nullls.builtins.formatting.stylua,
+format_on_save.setup({
+  formatter_by_ft = {
+    css = formatters.prettierd,
+    html = formatters.prettierd,
+    java = formatters.prettierd,
+    javascript = formatters.prettierd,
+    json = formatters.prettierd,
+    lua = formatters.lsp,
+    go = formatters.lsp,
+    markdown = formatters.prettierd,
+    openscad = formatters.lsp,
+    python = formatters.black,
+    rust = formatters.lsp,
+    scad = formatters.lsp,
+    scss = formatters.lsp,
+    sh = formatters.shfmt,
+    terraform = formatters.lsp,
+    typescript = formatters.prettierd,
+    typescriptreact = formatters.prettierd,
+    yaml = formatters.prettierd,
   },
-  on_attach = function(client, bufnr)
-    if client.supports_method "textDocument/formatting" then
-      vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        group = augroup,
-        buffer = bufnr,
-        callback = function()
-          vim.lsp.buf.format { bufnr = bufnr }
-        end,
-      })
-    end
-  end,
-  debug = true,
-}
+
+  -- fallback formatter to use when no formatters match the current filetype
+  fallback_formatter = {
+    formatters.remove_trailing_whitespace,
+    formatters.remove_trailing_newlines,
+    formatters.prettierd,
+  },
+
+  run_with_sh = false,
+})
