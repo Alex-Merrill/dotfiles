@@ -113,7 +113,7 @@ f() {
 unsetopt EXTENDED_HISTORY
 
 ################################ ALIAS #######################################
-alias vim="nvim" 
+alias vim="nvim"
 alias edit="nvim ~/.zshrc"
 alias vimconfig="cd ~/.config/nvim/lua"
 alias config="cd ~/.config"
@@ -126,7 +126,6 @@ alias la="ls -a"
 alias ll="ls -ll"
 alias code="cd ~/Code"
 alias sourcezsh="source ~/.zshrc ~/.zsh_profile"
-alias python="python3"
 alias t="tmux -2 -u"
 alias tko="tmux kill-server"
 alias edittmux="vim ~/.tmux.conf"
