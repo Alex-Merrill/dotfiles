@@ -38,7 +38,7 @@ local modules = {
   {
     "ggandor/leap.nvim",
     dependencies = { "tokyonight.nvim" },
-    event = "VeryLazy",
+    lazy = false,
     config = function()
       require("leap").create_default_mappings()
     end,
@@ -98,6 +98,13 @@ local modules = {
     cmd = "StartupTime",
     init = function()
       vim.g.startuptime_tries = 10
+    end,
+  },
+  {
+    'akinsho/toggleterm.nvim',
+    lazy = false,
+    config = function()
+      require "plugins.toggleterm"
     end,
   },
 
@@ -203,12 +210,6 @@ local modules = {
   {
     "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
-    enable = false,
-    config = function()
-      require("lsp_signature").setup {
-        toggle_key = "<C-k>",
-      }
-    end,
   },
   -- formatting
   {

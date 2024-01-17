@@ -39,13 +39,12 @@ cmp.setup {
     ["<CR>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Replace },
   },
   sources = cmp.config.sources {
-    { name = "nvim_lsp_signature_help" },
     { name = "nvim_lua" },
     { name = "nvim_lsp" },
     { name = "cmp_tabnine" },
     { name = "luasnip" },
     { name = "path" },
-    { name = "buffer",                 keyword_length = 5 },
+    { name = "buffer",     keyword_length = 5 },
   },
   formatting = {
     format = lspkind.cmp_format {
@@ -82,13 +81,16 @@ require("mason-lspconfig").setup {
 }
 
 local on_attach = function(client, bufnr)
-  -- client.server_capabilities.documentFormattingProvider = false
+  vim.diagnostic.config({
+    float = {
+      source = "always"
+    }
+  })
   vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
   vim.keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, { buffer = 0 })
-  vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { buffer = 0 })
   vim.keymap.set("n", "<leader>gt", vim.lsp.buf.definition, { buffer = 0 })
   vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { buffer = 0 })
-  vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { buffer = 0 })
+  vim.keymap.set("n", "<leader>dt", vim.lsp.buf.type_definition, { buffer = 0 })
   vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { buffer = 0 })
   vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_next, { buffer = 0 })
   vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_prev, { buffer = 0 })
@@ -104,7 +106,6 @@ require("lspconfig").tsserver.setup {
   --
   on_attach = function(client, bufnr)
     local ts_utils = require "nvim-lsp-ts-utils"
-    -- client.server_capabilities.documentFormattingProvider = false
     ts_utils.setup {
       debug = false,
       disable_commands = false,
@@ -190,12 +191,11 @@ require("lspconfig").gopls.setup {
   },
 }
 
--- pylsp server setup
+-- python server setup
 require("lspconfig").pylsp.setup {
   capabilities = capabilities,
   on_attach = on_attach,
 }
-
 require("lspconfig").pyright.setup {
   capabilities = capabilities,
   on_attach = on_attach,
@@ -211,10 +211,21 @@ require("lspconfig").lua_ls.setup {
   on_attach = on_attach,
 }
 
+-- signature help
+require('lsp_signature').setup {
+  toggle_key = '<A-k>',
+  bind = true,
+  handler_opts = {
+    border = "none"
+  },
+}
+
 local format_on_save = require("format-on-save")
 local formatters = require("format-on-save.formatters")
+local vim_notify = require("format-on-save.error-notifiers.vim-notify")
 
 format_on_save.setup({
+  error_notifier = vim_notify,
   formatter_by_ft = {
     css = formatters.prettierd,
     html = formatters.prettierd,
@@ -242,6 +253,4 @@ format_on_save.setup({
     formatters.remove_trailing_newlines,
     formatters.prettierd,
   },
-
-  run_with_sh = false,
 })
