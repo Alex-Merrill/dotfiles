@@ -202,12 +202,6 @@ local modules = {
   { "jose-elias-alvarez/nvim-lsp-ts-utils" },
   { "onsails/lspkind.nvim" },
   {
-    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    config = function()
-      require("lsp_lines").setup()
-    end,
-  },
-  {
     "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
   },

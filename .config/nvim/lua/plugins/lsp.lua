@@ -76,7 +76,7 @@ require("mason").setup {
 }
 
 require("mason-lspconfig").setup {
-  ensure_installed = { "pylsp", "gopls", "tsserver" },
+  ensure_installed = { "pylsp", "gopls", "tsserver", "clangd" },
   automatic_installation = true,
 }
 
@@ -211,6 +211,21 @@ require("lspconfig").lua_ls.setup {
   on_attach = on_attach,
 }
 
+require("lspconfig").bashls.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
+require("lspconfig").rust_analyzer.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
+require("lspconfig").clangd.setup {
+  capabilities = capabilities,
+  on_attach = onattach,
+}
+
 -- signature help
 require('lsp_signature').setup {
   toggle_key = '<A-k>',
@@ -231,12 +246,12 @@ format_on_save.setup({
     html = formatters.prettierd,
     java = formatters.prettierd,
     javascript = formatters.prettierd,
+    javascriptreact = formatters.prettierd,
     json = formatters.prettierd,
     lua = formatters.lsp,
     go = formatters.lsp,
     markdown = formatters.prettierd,
     openscad = formatters.lsp,
-    python = formatters.black,
     rust = formatters.lsp,
     scad = formatters.lsp,
     scss = formatters.lsp,
@@ -245,6 +260,11 @@ format_on_save.setup({
     typescript = formatters.prettierd,
     typescriptreact = formatters.prettierd,
     yaml = formatters.prettierd,
+    python = {
+      formatters.shell({
+        cmd = { "black", "--stdin-filename", "%", "--quiet", "-l", "79", "-" }
+      })
+    },
   },
 
   -- fallback formatter to use when no formatters match the current filetype

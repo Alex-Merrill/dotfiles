@@ -2,7 +2,7 @@ local opt = vim.opt
 
 -- firenvim
 vim.cmd [[
-  let g:firenvim_config = { 
+  let g:firenvim_config = {
       \ 'globalSettings': {
           \ 'alt': 'all',
       \  },
@@ -65,7 +65,7 @@ opt.undofile = true
 opt.colorcolumn = "80"
 opt.cmdheight = 2
 opt.cursorline = true
-opt.signcolumn = "auto:1-4"
+opt.signcolumn = "yes"
 opt.title = false
 
 -- status line
@@ -79,6 +79,9 @@ opt.termguicolors = true
 
 -- clipboard
 opt.clipboard = "unnamed"
+
+-- python provider
+vim.g.python3_host_prog = '/home/alex/.pyenv/versions/py3nvim/bin/python'
 
 -- disable virtual text in favor of lsp_lines
 vim.diagnostic.config {
@@ -102,8 +105,20 @@ end
 
 vim.cmd [[
   augroup ChangeAlacrittyPadding
-   au! 
+   au!
    au VimEnter * lua DecreasePadding()
    au VimLeavePre * lua IncreasePadding()
-  augroup END 
+  augroup END
 ]]
+
+-- make zsh files recognized as sh for bash-ls & treesitter
+vim.filetype.add {
+  extension = {
+    zsh = "sh",
+    sh = "sh", -- force sh-files with zsh-shebang to still get sh as filetype
+  },
+  filename = {
+    [".zshrc"] = "sh",
+    [".zshenv"] = "sh",
+  },
+}

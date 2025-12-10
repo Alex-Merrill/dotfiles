@@ -1,5 +1,6 @@
 local colors = {
   none = "NONE",
+  white = "#fff",
   bg_dark = "#1f2335",
   bg = "#24283b",
   bg_highlight = "#292e42",

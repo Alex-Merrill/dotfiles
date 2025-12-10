@@ -1,27 +1,27 @@
 local set = vim.keymap.set
 
 local keymap = function(mode, keybind, cmd, bufnr)
-    -- Some default options
-    local opts = { noremap = true, silent = true }
+  -- Some default options
+  local opts = { noremap = true, silent = true }
 
-    if bufnr ~= nil then
-        opts["buffer"] = bufnr
-        set(mode, keybind, cmd, opts)
-    else
-        set(mode, keybind, cmd, opts)
-    end
+  if bufnr ~= nil then
+    opts["buffer"] = bufnr
+    set(mode, keybind, cmd, opts)
+  else
+    set(mode, keybind, cmd, opts)
+  end
 end
 
 local nmap = function(keybind, cmd, bufnr)
-    keymap("n", keybind, cmd, bufnr)
+  keymap("n", keybind, cmd, bufnr)
 end
 
 local vmap = function(keybind, cmd, bufnr)
-    keymap("v", keybind, cmd, bufnr)
+  keymap("v", keybind, cmd, bufnr)
 end
 
 local imap = function(keybind, cmd, bufnr)
-    keymap("i", keybind, cmd, bufnr)
+  keymap("i", keybind, cmd, bufnr)
 end
 
 -- remap leader
@@ -45,8 +45,6 @@ nmap("<leader>p", '"+p')
 vmap("<leader>y", '"+y')
 vmap("<leader>p", '"+p')
 
--- lsp lines toggle
-nmap("<leader>l", require("lsp_lines").toggle)
 
 -- diffview map
 nmap("<leader>gd", "<cmd>lua require('plugins.diffview').toggleDiffview()<cr>")
@@ -79,8 +77,8 @@ nmap("<leader>tv", "<cmd>ToggleTerm direction=vertical<cr>")
 nmap("<leader>th", "<cmd>ToggleTerm direction=horizontal<cr>")
 nmap("<leader>tf", "<cmd>ToggleTerm direction=float<cr>")
 nmap("<leader>st", function()
-    require("toggleterm").send_lines_to_terminal("single_line", false, { args = vim.v.count })
+  require("toggleterm").send_lines_to_terminal("single_line", false, { args = vim.v.count })
 end)
 vmap("<leader>st", function()
-    require("toggleterm").send_lines_to_terminal("visual_lines", false, { args = vim.v.count })
+  require("toggleterm").send_lines_to_terminal("visual_lines", false, { args = vim.v.count })
 end)
