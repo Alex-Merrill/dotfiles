@@ -76,7 +76,7 @@ require("mason").setup {
 }
 
 require("mason-lspconfig").setup {
-  ensure_installed = { "pylsp", "gopls", "tsserver", "clangd" },
+  ensure_installed = { "pylsp", "gopls", "ts_ls", "clangd" },
   automatic_installation = true,
 }
 
@@ -100,7 +100,7 @@ end
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- tsserver setup
-require("lspconfig").tsserver.setup {
+vim.lsp.config("ts_ls", {
   capabilities = capabilities,
   init_options = require("nvim-lsp-ts-utils").init_options,
   --
@@ -166,21 +166,21 @@ require("lspconfig").tsserver.setup {
     vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_prev, { buffer = 0 })
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = 0 })
   end,
-}
+})
 
 -- html server setup
-require("lspconfig").html.setup {
+vim.lsp.config("html", {
   capabilities = capabilities,
   on_attach = on_attach,
-}
+})
 
-require("lspconfig").cssls.setup {
+vim.lsp.config("cssls", {
   capabilities = capabilities,
   on_attach = on_attach,
-}
+})
 
 -- gopls server setup
-require("lspconfig").gopls.setup {
+vim.lsp.config("gopls", {
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -189,42 +189,43 @@ require("lspconfig").gopls.setup {
       gofumpt = true,
     },
   },
-}
+})
 
 -- python server setup
-require("lspconfig").pylsp.setup {
+vim.lsp.config("pylsp", {
   capabilities = capabilities,
   on_attach = on_attach,
-}
-require("lspconfig").pyright.setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-}
+})
 
-require("lspconfig").yamlls.setup {
+vim.lsp.config("pyright", {
   capabilities = capabilities,
   on_attach = on_attach,
-}
+})
 
-require("lspconfig").lua_ls.setup {
+vim.lsp.config("yamlls", {
   capabilities = capabilities,
   on_attach = on_attach,
-}
+})
 
-require("lspconfig").bashls.setup {
+vim.lsp.config("lua_ls", {
   capabilities = capabilities,
   on_attach = on_attach,
-}
+})
 
-require("lspconfig").rust_analyzer.setup {
+vim.lsp.config("bashls", {
   capabilities = capabilities,
   on_attach = on_attach,
-}
+})
 
-require("lspconfig").clangd.setup {
+vim.lsp.config("rust_analyzer", {
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+vim.lsp.config("clangd", {
   capabilities = capabilities,
   on_attach = onattach,
-}
+})
 
 -- signature help
 require('lsp_signature').setup {

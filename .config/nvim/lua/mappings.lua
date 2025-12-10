@@ -72,6 +72,10 @@ imap("<C-k>", "<esc><C-w>k")
 imap("<C-h>", "<esc><C-w>h")
 imap("<C-l>", "<esc><C-w>l")
 
+-- leap
+vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap)')
+vim.keymap.set('n', 'S', '<Plug>(leap-from-window)')
+
 -- terminal
 nmap("<leader>tv", "<cmd>ToggleTerm direction=vertical<cr>")
 nmap("<leader>th", "<cmd>ToggleTerm direction=horizontal<cr>")

@@ -10,6 +10,7 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
 export PATH=$PATH:/usr/share/processing/processing-4.0.1
 export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
+export PATH=$PATH:$HOME/bin
 
 # nvm
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
@@ -72,7 +73,6 @@ plugins=(
   git
   fzf
   zsh-autosuggestions
-  asdf
   pyenv
   poetry
 )

@@ -39,9 +39,6 @@ local modules = {
     "ggandor/leap.nvim",
     dependencies = { "tokyonight.nvim" },
     lazy = false,
-    config = function()
-      require("leap").create_default_mappings()
-    end,
   },
   {
     "lukas-reineke/indent-blankline.nvim",
@@ -156,16 +153,10 @@ local modules = {
 
   --treesitter
   {
-    "nvim-treesitter/nvim-treesitter",
-    build = function()
-      require("nvim-treesitter.install").update { with_sync = true }
-    end,
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
-    },
-    config = function()
-      require "plugins.treesitter"
-    end,
+    'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    branch = 'main',
+    build = ':TSUpdate'
   },
   { "windwp/nvim-ts-autotag" },
 
