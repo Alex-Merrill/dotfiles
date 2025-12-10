@@ -196,6 +196,12 @@ local modules = {
     "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
   },
+  {
+    "folke/trouble.nvim",
+    lazy = false,
+    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    cmd = "Trouble",
+  },
   -- formatting
   {
     "elentok/format-on-save.nvim",

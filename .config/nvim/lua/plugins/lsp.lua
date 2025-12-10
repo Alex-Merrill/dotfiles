@@ -91,9 +91,6 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>gt", vim.lsp.buf.definition, { buffer = 0 })
   vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { buffer = 0 })
   vim.keymap.set("n", "<leader>dt", vim.lsp.buf.type_definition, { buffer = 0 })
-  vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { buffer = 0 })
-  vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_next, { buffer = 0 })
-  vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_prev, { buffer = 0 })
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = 0 })
 end
 

@@ -45,6 +45,10 @@ nmap("<leader>p", '"+p')
 vmap("<leader>y", '"+y')
 vmap("<leader>p", '"+p')
 
+-- trouble
+nmap("<leader>db", "<cmd>Trouble diagnostics toggle<cr>")
+vmap("<leader>db", "<cmd>Trouble diagnostics toggle<cr>")
+
 
 -- diffview map
 nmap("<leader>gd", "<cmd>lua require('plugins.diffview').toggleDiffview()<cr>")
