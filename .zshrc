@@ -11,6 +11,7 @@ export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
 export PATH=$PATH:/usr/share/processing/processing-4.0.1
 export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
 export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/.asdf/shims
 
 # nvm
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
@@ -86,7 +87,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 # Zoxide
-eval "$(zoxide init --cmd cd zsh)"
+eval "$(zoxide init zsh)"
 
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
