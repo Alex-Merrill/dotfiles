@@ -80,19 +80,20 @@ require("mason-lspconfig").setup {
   automatic_installation = true,
 }
 
-local on_attach = function(client, bufnr)
-  vim.diagnostic.config({
-    float = {
-      source = "always"
-    }
-  })
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-  vim.keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, { buffer = 0 })
-  vim.keymap.set("n", "<leader>gt", vim.lsp.buf.definition, { buffer = 0 })
-  vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { buffer = 0 })
-  vim.keymap.set("n", "<leader>dt", vim.lsp.buf.type_definition, { buffer = 0 })
-  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = 0 })
-end
+-- local on_attach = function(client, bufnr)
+--   vim.diagnostic.config({
+--     float = {
+--       source = "always"
+--     }
+--   })
+--   print("fuck")
+--   vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
+--   vim.keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, { buffer = 0 })
+--   vim.keymap.set("n", "<leader>gt", vim.lsp.buf.definition, { buffer = 0 })
+--   vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { buffer = 0 })
+--   vim.keymap.set("n", "<leader>dt", vim.lsp.buf.type_definition, { buffer = 0 })
+--   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = 0 })
+-- end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
@@ -166,63 +167,83 @@ vim.lsp.config("ts_ls", {
 })
 
 -- html server setup
-vim.lsp.config("html", {
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
+-- vim.lsp.config("html", {
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+-- })
+--
+-- vim.lsp.config("cssls", {
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+-- })
+--
+-- -- gopls server setup
+-- vim.lsp.config("gopls", {
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+--   settings = {
+--     gopls = {
+--       staticcheck = true,
+--       gofumpt = true,
+--     },
+--   },
+-- })
+--
+-- -- python server setup
+-- vim.lsp.config("pylsp", {
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+-- })
+--
+-- vim.lsp.config("pyright", {
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+-- })
+--
+-- vim.lsp.config("yamlls", {
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+-- })
+--
+-- vim.lsp.config("lua_ls", {
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+-- })
+--
+-- vim.lsp.config("bashls", {
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+-- })
+--
+-- vim.lsp.config("rust_analyzer", {
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+-- })
+--
+-- vim.lsp.config("clangd", {
+--   capabilities = capabilities,
+--   on_attach = onattach,
+-- })
+vim.lsp.enable({ "html", "cssls", "gopls", "pylsp", "pyright", "yamlls", "lua_ls", "bashls", "rust_analyzer", "clangd" })
 
-vim.lsp.config("cssls", {
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
 
--- gopls server setup
-vim.lsp.config("gopls", {
-  capabilities = capabilities,
-  on_attach = on_attach,
-  settings = {
-    gopls = {
-      staticcheck = true,
-      gofumpt = true,
-    },
-  },
-})
+vim.api.nvim_create_autocmd("LspAttach",
+  {
+    group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+    callback = function(e)
+      local bufopts = { buffer = e.buf }
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
+      vim.keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, { buffer = 0 })
+      vim.keymap.set("n", "<leader>gt", vim.lsp.buf.definition, { buffer = 0 })
+      vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, { buffer = 0 })
+      vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { buffer = 0 })
+      vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { buffer = 0 })
+      vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_next, { buffer = 0 })
+      vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_prev, { buffer = 0 })
+      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = 0 })
+    end,
+  })
 
--- python server setup
-vim.lsp.config("pylsp", {
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
-vim.lsp.config("pyright", {
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
-vim.lsp.config("yamlls", {
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
-vim.lsp.config("lua_ls", {
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
-vim.lsp.config("bashls", {
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
-vim.lsp.config("rust_analyzer", {
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
-vim.lsp.config("clangd", {
-  capabilities = capabilities,
-  on_attach = onattach,
-})
 
 -- signature help
 require('lsp_signature').setup {
